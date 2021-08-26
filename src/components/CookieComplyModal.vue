@@ -10,14 +10,19 @@
 
         <main class="cookie-comply__modal-content">
           <slot>
-            <p>Quando você visita qualquer site, ele pode armazenar ou recuperar informações em seu navegador, principalmente na forma de cookies. Essas informações podem ser sobre você, suas preferências ou seu dispositivo, e são usadas principalmente para fazer o site funcionar como você espera. As informações geralmente não identificam você diretamente, mas podem lhe dar uma experiência web mais personalizada. Como respeitamos seu direito à privacidade, você pode optar por não permitir alguns tipos de cookies. Clique nos diferentes títulos de categoria para obter mais informações e alterar nossas configurações padrão. No entanto, bloquear alguns tipos de cookies pode afetar sua experiência no site e os serviços que podemos oferecer.</p>
+            <div v-for="(preference, index) in preferences" :key="index">
+              <h2>{{ preference.title }}</h2>
+              <p>{{ preference.description }}</p>
+              <div v-for="item in preference.items" :key="item.value" class="cookie-comply__modal-switches">
+                <h3>{{ item.label }}</h3>
+                <cookie-comply-switch :value="item.value" @update:checkbox="handleCheckboxUpdate" />
+              </div>
+            </div>
           </slot>
         </main>
 
         <footer class="cookie-comply__modal-footer">
-          <slot name="modal-footer">
-            <button @click="onSaveConfiguration">Salvar</button>
-          </slot>
+          <cookie-comply-button @handleClick="onSaveConfiguration">Salvar</cookie-comply-button>
         </footer>
       </div>
     </div>
@@ -25,11 +30,30 @@
 </template>
 
 <script>
+import CookieComplyButton from './CookieComplyButton.vue';
+import CookieComplySwitch from './CookieComplySwitch.vue';
+
 export default {
   name: 'CookieComplyModal',
+  components: {
+    CookieComplyButton,
+    CookieComplySwitch
+  },
+  props: {
+    preferences: { type: Array, default: [] }
+  },
+  data() {
+    return {
+      checkedValues: []
+    }
+  },
   methods: {
+    handleCheckboxUpdate({ value, isEnable }) {
+      console.log("isEnable", isEnable)
+      isEnable ? this.checkedValues.push(value) : this.checkedValues.splice(this.checkedValues.indexOf(value), 1);
+    },
     onSaveConfiguration() {
-      this.$emit('close-modal');
+      this.$emit('cookie-comply-save', this.checkedValues);
     }
   }
 }
@@ -61,6 +85,18 @@ export default {
   box-shadow: 0 1px 6px 1px rgb(0 0 0 / 10%), 0 1px 7px 1px rgb(0 0 0 / 6%);
 }
 
+.cookie-comply__modal-content {
+  overflow-y: scroll;
+  max-height: 400px;
+  text-align: left;
+}
+
+.cookie-comply__modal-switches {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @media only screen and (max-width: 380px) {
   .cookie-comply__modal-middle {
     padding: 14px;
@@ -73,5 +109,10 @@ export default {
 
 .cookie-comply__modal-header {
   border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.cookie-comply__modal-footer {
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  padding-top: 20px;
 }
 </style>
