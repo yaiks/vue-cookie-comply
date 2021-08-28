@@ -1,0 +1,12 @@
+:root {
+  --spacing-sm: 8px;
+  --spacing-md: 14px;
+  --spacing-lg: 20px;
+  --color-green: #00c58e;
+  --color-white: #ffffff;
+  --box-shadow: 0 1px 6px 1px rgb(0 0 0 / 10%), 0 1px 7px 1px rgb(0 0 0 / 6%);
+  --border-radius: 8px;
+  --background-overlay: rgba(34, 34, 34, 0.3);
+  --border-color-lightest: 1px solid rgba(200, 200, 200, .2);
+  --border-color-light: 1px solid rgba(0, 0, 0, .1);
+}

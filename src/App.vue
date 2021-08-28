@@ -7,8 +7,13 @@
     @on-save-cookie-preferences="onSavePreferences"
   >
     <template v-slot:modal-header>
-      <h3>My custom header</h3>
+      <h3>My custom modal header</h3>
     </template>
+
+    <!-- <template v-slot:modal-body="{ preference, index }">
+      <div>{{ preference.title }}</div>
+      <div>{{ index }}</div>
+    </template> -->
   </vue-cookie-comply>
 </template>
 
@@ -30,10 +35,10 @@ const onAcceptAll = () => {
 
 const preferences = [
   {
-    title: 'Desempenho',
+    title: 'Performance',
     description: 'Bla bla serviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer serviços que podemos oferecer.',
     items: [
-      { label: 'Ativar', value: 'desempenho' }
+      { label: 'Active', value: 'performance', isRequired: true }
     ]
   },
   {
@@ -48,9 +53,6 @@ const preferences = [
     ]
   },
 ]
-
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/master/active-rfcs/0040-script-setup.md
 </script>
 
 <style>

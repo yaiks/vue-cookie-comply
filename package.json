@@ -1,17 +1,21 @@
 {
-  "name": "vue-cookie-plugin",
+  "name": "vue-cookie-comply",
   "version": "0.0.0",
+  "files": ["dist"],
+  "main": "./dist/vue-cookie-comply.umd.js",
+  "module": "./dist/vue-cookie-comply.es.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
-  "dependencies": {
-    "vue": "^3.0.5"
-  },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.3.0",
     "@vue/compiler-sfc": "^3.0.5",
-    "vite": "^2.4.4"
+    "vite": "^2.4.4",
+    "vue": "^3.0.5"
+  },
+  "peerDependencies": {
+    "vue": "3.x"
   }
 }

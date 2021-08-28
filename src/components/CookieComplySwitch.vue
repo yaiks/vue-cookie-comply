@@ -1,7 +1,7 @@
 <template>
-  <label class="switch">
-    <input type="checkbox" :id="value" :value="value" @input="onToggle($event.target.value)" />
-    <span class="slider round"></span>
+  <label class="cookie-comply-switch" :title="isRequired ? `is required` : value">
+    <input type="checkbox" :id="value" :value="value" @input="onToggle($event.target.value)" :disabled="isRequired" />
+    <span class="cookie-comply-slider cookie-comply-round" :class="{ 'cookie-comply-required': isRequired }"></span>
   </label>
 </template>
 
@@ -11,10 +11,19 @@ export default {
   emits: ['update:checkbox'],
   props: {
     value: { type: String, required: true },
+    isRequired: { type: Boolean, default: false }
   },
   data() {
     return {
       isEnable: false,
+    }
+  },
+  watch: {
+    isRequired(newVal) {
+      console.log('isrequired', newVal)
+    },
+    value(va) {
+      console.log('va', va)
     }
   },
   methods: {
@@ -27,20 +36,20 @@ export default {
 </script>
 
 <style>
-.switch {
+.cookie-comply-switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
 }
 
-.switch input {
+.cookie-comply-switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.slider {
+.cookie-comply-slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -52,38 +61,48 @@ export default {
   transition: .4s;
 }
 
-.slider:before {
+.cookie-comply-slider:before {
   position: absolute;
   content: "";
   height: 26px;
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: var(--color-white);
   -webkit-transition: .4s;
   transition: .4s;
 }
 
-input:checked + .slider {
-  background-color: #00c58e;
+input:checked + .cookie-comply-slider {
+  background-color: var(--color-green);
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #00c58e;
+input:focus + .cookie-comply-slider {
+  box-shadow: 0 0 1px var(--color-green);
 }
 
-input:checked + .slider:before {
+input:checked + .cookie-comply-slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
-.slider.round {
+.cookie-comply-slider.cookie-comply-round {
   border-radius: 34px;
 }
 
-.slider.round:before {
+.cookie-comply-slider.cookie-comply-round:before {
   border-radius: 50%;
+}
+
+.cookie-comply-required.cookie-comply-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.cookie-comply-required {
+  cursor: not-allowed;
 }
 
 </style>

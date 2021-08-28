@@ -1,28 +1,36 @@
 <template>
-  <aside class="cookie-comply">
+  <aside v-if="showCookieComply" class="cookie-comply">
     <div class="cookie-comply__header">
       <slot name="header">
-        <h3 class="cookie-comply__header-title">Cookie settings</h3>
-        <p class="cookie-comply__header-description">{{ this.description }}</p>
+        <h3 class="cookie-comply__header-title">{{ this.headerTitle }}</h3>
+        <p class="cookie-comply__header-description">{{ this.headerDescription }}</p>
       </slot>
     </div>
 
     <div class="cookie-comply__actions">
       <cookie-comply-button @handleClick="openPreferences">
-        Preferências
+        {{ this.preferencesLabel }}
       </cookie-comply-button>
       <cookie-comply-button
         className="cookie-comply__button-accept"
         @handleClick="handleAcceptAll"
       >
-        Accept All
+        {{ this.acceptAllLabel }}
       </cookie-comply-button>
     </div>
 
     <Teleport to="#app">
-      <cookie-comply-modal v-if="isOpen" :preferences="preferences" @cookie-comply-save="onSave">
+      <cookie-comply-modal v-if="isModalOpen" :preferences="preferences" @cookie-comply-save="onSave" @cookie-comply-close="isModalOpen = false">
         <template v-slot:modal-header>
           <slot name="modal-header"></slot>
+        </template>
+
+        <template v-slot:modal-body="{ preference, index }">
+          <slot name="modal-body" :preference="preference" :index="index"></slot>
+        </template>
+
+        <template v-slot:modal-footer>
+          <slot name="modal-footer"></slot>
         </template>
       </cookie-comply-modal>
     </Teleport>
@@ -37,46 +45,61 @@ export default {
   name: "CookieComply",
   components: { CookieComplyModal, CookieComplyButton },
   props: {
+    headerTitle: { type: String, default: 'Cookie settings' },
+    headerDescription: { type: String, default: 'We use cookies and similar technologies to help personalize content and offer a better experience. You can opt to customize them by clicking the preferences button.' },
+    preferencesLabel: { type: String, default: 'Preferences' },
+    acceptAllLabel: { type: String, default: 'Accept All' },
     preferences: { type: Array, default: [] }
   },
   data() {
     return {
-      description:
-        "Usamos cookies e tecnologias semelhantes para ajudar a personalizar conteúdos, adaptar e avaliar anúncios e oferecer uma experiência melhor. Ao clicar em OK ou ativar uma opção em Preferências de cookies.",
-      isOpen: false,
+      showCookieComply: true,
+      isModalOpen: false,
     };
   },
   mounted() {
-    console.log("CookieComply!!");
+    if (localStorage.getItem('cookie-comply')) {
+      this.showCookieComply = false;
+    }
   },
   methods: {
     handleAcceptAll() {
+      this.showCookieComply = false;
+      localStorage.setItem('cookie-comply', 'all');
       this.$emit("on-accept-all-cookies");
     },
     openPreferences() {
-      this.isOpen = true;
+      this.isModalOpen = true;
     },
     onSave(data) {
-      this.isOpen = false;
-      this.$emit('on-save-cookie-preferences', Object.assign({}, data))
+      this.isModalOpen = false;
+      this.showCookieComply = false;
+
+      // transform Proxy into array of selected preferences
+      const preferencesArray = Object.values(data);
+
+      localStorage.setItem('cookie-comply', JSON.stringify(preferencesArray))
+      this.$emit('on-save-cookie-preferences', preferencesArray)
     },
   },
 };
 </script>
 
 <style>
+@import '../styles/variables.css';
+
 .cookie-comply {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  background-color: white;
-  box-shadow: 0 1px 6px 1px rgb(0 0 0 / 10%), 0 1px 7px 1px rgb(0 0 0 / 6%);
   display: grid;
-  grid-gap: 20px;
+  grid-gap: var(--spacing-lg);
   grid-template-columns: 1fr minmax(35%, 40%);
-  padding: 16px;
-  border-radius: 8px;
+  position: absolute;
+  bottom: var(--spacing-sm);
+  left: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background-color: var(--color-white);
+  box-shadow: var(--box-shadow);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
 }
 
 @media only screen and (max-width: 1024px) {
@@ -95,7 +118,7 @@ export default {
   margin: 0;
 }
 .cookie-comply__header-title {
-  margin-bottom: 6px;
+  margin-bottom: var(--spacing-sm);
 }
 .cookie-comply__header-description {
   line-height: 20px;
@@ -103,14 +126,14 @@ export default {
 
 .cookie-comply__actions {
   display: grid;
-  grid-gap: 20px;
+  grid-gap: var(--spacing-lg);
   grid-template-columns: repeat(2, 1fr);
   align-self: center;
 }
 
 @media only screen and (max-width: 380px) {
   .cookie-comply__header {
-    margin-bottom: 8px;
+    margin-bottom: var(--spacing-sm);
   }
 
   .cookie-comply__actions {
@@ -119,8 +142,8 @@ export default {
 }
 
 .cookie-comply__button-accept {
-  background-color: #00c58e;
-  color: white;
+  background-color: var(--color-green);
+  color: var(--color-white);
   border: none;
 }
 </style>

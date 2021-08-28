@@ -1,8 +1,23 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import vueCookieComply from './plugins/vue-cookie-comply'
+import CookieComply from './components/CookieComply.vue'
 
-const app = createApp(App)
+export default {
+  install: (app, options) => {
+    if (!window) return;
 
-app.use(vueCookieComply)
-app.mount('#app')
+    // get cookies
+    const cookies = document.cookie;
+
+    // receive message
+
+    // expose function when accepted all cookies
+    // receive array with objects
+    /**
+     * [
+     *  { id, title, description, required }
+     * ]
+     */
+    // expose function to handler custom settings: handler(options)
+
+    app.component('vue-cookie-comply', CookieComply)
+  }
+}

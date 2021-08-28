@@ -7,7 +7,6 @@ export default {
 
     // get cookies
     const cookies = document.cookie;
-    console.log('COOKIE', cookies)
 
     // receive message
 

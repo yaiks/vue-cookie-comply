@@ -2,27 +2,31 @@
   <div class="cookie-comply__modal">
     <div class="cookie-comply__modal-middle">
       <div class="cookie-comply__modal-inner">
+        <img alt="Back arrow" src="../assets/arrow_back.svg" class="cookie-comply__back-arrow" @click="onCloseModal" />
+
         <header class="cookie-comply__modal-header">
           <slot name="modal-header">
-            <h3>Sua privacidade</h3>
+            <h3>Your privacy preferences</h3>
           </slot>
         </header>
 
         <main class="cookie-comply__modal-content">
-          <slot>
-            <div v-for="(preference, index) in preferences" :key="index">
+          <div v-for="(preference, index) in preferences" :key="index">
+            <slot name="modal-body" :preference="preference" :index="index">
               <h2>{{ preference.title }}</h2>
               <p>{{ preference.description }}</p>
               <div v-for="item in preference.items" :key="item.value" class="cookie-comply__modal-switches">
                 <h3>{{ item.label }}</h3>
-                <cookie-comply-switch :value="item.value" @update:checkbox="handleCheckboxUpdate" />
+                <cookie-comply-switch :value="item.value" :isRequired="item.isRequired" @update:checkbox="handleCheckboxUpdate" />
               </div>
-            </div>
-          </slot>
+            </slot>
+          </div>
         </main>
 
         <footer class="cookie-comply__modal-footer">
-          <cookie-comply-button @handleClick="onSaveConfiguration">Salvar</cookie-comply-button>
+          <slot name="modal-footer">
+            <cookie-comply-button @handleClick="onSaveConfiguration">Save</cookie-comply-button>
+          </slot>
         </footer>
       </div>
     </div>
@@ -49,11 +53,13 @@ export default {
   },
   methods: {
     handleCheckboxUpdate({ value, isEnable }) {
-      console.log("isEnable", isEnable)
       isEnable ? this.checkedValues.push(value) : this.checkedValues.splice(this.checkedValues.indexOf(value), 1);
     },
     onSaveConfiguration() {
       this.$emit('cookie-comply-save', this.checkedValues);
+    },
+    onCloseModal() {
+      this.$emit('cookie-comply-close');
     }
   }
 }
@@ -67,7 +73,7 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(34, 34, 34, 0.3);
+  background-color: var(--background-overlay);
 }
 
 .cookie-comply__modal-middle {
@@ -76,13 +82,20 @@ export default {
 }
 
 .cookie-comply__modal-inner {
+  position: relative;
   margin-left: auto;
   margin-right: auto;
   width: 400px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 6px 1px rgb(0 0 0 / 10%), 0 1px 7px 1px rgb(0 0 0 / 6%);
+  padding: var(--spacing-lg);
+  background-color: var(--color-white);
+  border-radius: var(--spacing-sm);
+  box-shadow: var(--box-shadow);
+}
+
+.cookie-comply__back-arrow {
+  position: absolute;
+  left: var(--spacing-lg);
+  cursor: pointer;
 }
 
 .cookie-comply__modal-content {
@@ -95,11 +108,12 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: var(--border-color-lightest);
 }
 
 @media only screen and (max-width: 380px) {
   .cookie-comply__modal-middle {
-    padding: 14px;
+    padding: var(--spacing-md);
   }
 
   .cookie-comply__modal-inner {
@@ -108,11 +122,11 @@ export default {
 }
 
 .cookie-comply__modal-header {
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: var(--border-color-light);
 }
 
 .cookie-comply__modal-footer {
-  border-top: 1px solid rgba(0, 0, 0, .1);
-  padding-top: 20px;
+  border-top: var(--border-color-light);
+  padding-top: var(--spacing-lg);
 }
 </style>
