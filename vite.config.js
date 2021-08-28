@@ -1,6 +1,6 @@
-const path = require('path')
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+const path = require('path');
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,15 +9,15 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/main.js'),
       name: 'vue-cookie-comply',
-      fileName: format => `vue-cookie-comply.${format}.js`
+      fileName: (format) => `vue-cookie-comply.${format}.js`,
     },
     rollupOptions: {
       external: ['vue'],
       output: {
         globals: {
-          vue: 'Vue'
-        }
-      }
-    }
-  }
-})
+          vue: 'Vue',
+        },
+      },
+    },
+  },
+});

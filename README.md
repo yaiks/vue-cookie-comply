@@ -23,33 +23,33 @@ Pass an array of objects to display in the modal
 [
   {
     title: 'Performance',
-    description: 'Bla bla serviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer serviços que podemos oferecer.',
-    items: [
-      { label: 'Active', value: 'performance', isRequired: true }
-    ]
+    description:
+      'Bla bla serviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer serviços que podemos oferecer.',
+    items: [{ label: 'Active', value: 'performance', isRequired: true }],
   },
   {
     title: 'Analytics',
-    description: 'Bla bla serviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer serviços que podemos oferecer.',
+    description:
+      'Bla bla serviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer serviços que podemos oferecer.',
     items: [
       { label: 'GoogleAnalytics', value: 'ga' },
       { label: 'Sentry', value: 'sentry' },
       { label: 'Mapbox', value: 'mapbox' },
       { label: 'New Relic', value: 'newRelic' },
-      { label: 'Dog Food', value: 'dogfood' }
-    ]
+      { label: 'Dog Food', value: 'dogfood' },
+    ],
   },
-]
+];
 ```
 
 ## Usage
 
 ```vue
-  <vue-cookie-comply
-    :preferences="preferences"
-    @on-accept-all-cookies="onAcceptAll"
-    @on-save-cookie-preferences="onSavePreferences"
-  >
+<vue-cookie-comply
+  :preferences="preferences"
+  @on-accept-all-cookies="onAcceptAll"
+  @on-save-cookie-preferences="onSavePreferences"
+>
     <template v-slot:modal-header>
       <h3>My custom modal header</h3>
     </template>
@@ -63,12 +63,12 @@ Pass an array of objects to display in the modal
 
 ```js
 const onSavePreferences = (info) => {
-  console.log('in my app doing something with info -> ', info)
-}
+  console.log('in my app doing something with info -> ', info);
+};
 
 const onAcceptAll = () => {
-  console.log('accepted all cookies')
-}
+  console.log('accepted all cookies');
+};
 ```
 
 Teleport target is `body` by default. If you want to change ir, pass the following prop.

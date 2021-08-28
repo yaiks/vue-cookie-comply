@@ -1,38 +1,50 @@
 <template>
-  <label class="cookie-comply-switch" :title="isRequired ? `is required` : value">
-    <input type="checkbox" :id="value" :value="value" @input="onToggle($event.target.value)" :disabled="isRequired" />
-    <span class="cookie-comply-slider cookie-comply-round" :class="{ 'cookie-comply-required': isRequired }"></span>
+  <label
+    class="cookie-comply-switch"
+    :title="isRequired ? `is required` : value"
+  >
+    <input
+      :id="value"
+      type="checkbox"
+      :value="value"
+      :disabled="isRequired"
+      @input="onToggle($event.target.value)"
+    />
+    <span
+      class="cookie-comply-slider cookie-comply-round"
+      :class="{ 'cookie-comply-required': isRequired }"
+    ></span>
   </label>
 </template>
 
 <script>
 export default {
   name: 'CookieComplySwitch',
-  emits: ['update:checkbox'],
   props: {
     value: { type: String, required: true },
-    isRequired: { type: Boolean, default: false }
+    isRequired: { type: Boolean, default: false },
   },
+  emits: ['update:checkbox'],
   data() {
     return {
       isEnable: false,
-    }
+    };
   },
   watch: {
     isRequired(newVal) {
-      console.log('isrequired', newVal)
+      console.log('isrequired', newVal);
     },
     value(va) {
-      console.log('va', va)
-    }
+      console.log('va', va);
+    },
   },
   methods: {
     onToggle(value) {
       this.isEnable = !this.isEnable;
-      this.$emit('update:checkbox', { value, isEnable: this.isEnable })
-    }
-  }
-}
+      this.$emit('update:checkbox', { value, isEnable: this.isEnable });
+    },
+  },
+};
 </script>
 
 <style>
@@ -57,20 +69,20 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .cookie-comply-slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 26px;
   width: 26px;
   left: 4px;
   bottom: 4px;
   background-color: var(--color-white);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .cookie-comply-slider {
@@ -104,5 +116,4 @@ input:checked + .cookie-comply-slider:before {
 .cookie-comply-required {
   cursor: not-allowed;
 }
-
 </style>

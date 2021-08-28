@@ -2,7 +2,12 @@
   <div class="cookie-comply__modal">
     <div class="cookie-comply__modal-middle">
       <div class="cookie-comply__modal-inner">
-        <img alt="Back arrow" src="../assets/arrow_back.svg" class="cookie-comply__back-arrow" @click="onCloseModal" />
+        <img
+          alt="Back arrow"
+          src="../assets/arrow_back.svg"
+          class="cookie-comply__back-arrow"
+          @click="onCloseModal"
+        />
 
         <header class="cookie-comply__modal-header">
           <slot name="modal-header">
@@ -15,9 +20,17 @@
             <slot name="modal-body" :preference="preference" :index="index">
               <h2>{{ preference.title }}</h2>
               <p>{{ preference.description }}</p>
-              <div v-for="item in preference.items" :key="item.value" class="cookie-comply__modal-switches">
+              <div
+                v-for="item in preference.items"
+                :key="item.value"
+                class="cookie-comply__modal-switches"
+              >
                 <h3>{{ item.label }}</h3>
-                <cookie-comply-switch :value="item.value" :isRequired="item.isRequired" @update:checkbox="handleCheckboxUpdate" />
+                <cookie-comply-switch
+                  :value="item.value"
+                  :is-required="item.isRequired"
+                  @update:checkbox="handleCheckboxUpdate"
+                />
               </div>
             </slot>
           </div>
@@ -25,7 +38,9 @@
 
         <footer class="cookie-comply__modal-footer">
           <slot name="modal-footer">
-            <cookie-comply-button @handleClick="onSaveConfiguration">Save</cookie-comply-button>
+            <cookie-comply-button @handleClick="onSaveConfiguration"
+              >Save</cookie-comply-button
+            >
           </slot>
         </footer>
       </div>
@@ -41,28 +56,31 @@ export default {
   name: 'CookieComplyModal',
   components: {
     CookieComplyButton,
-    CookieComplySwitch
+    CookieComplySwitch,
   },
   props: {
-    preferences: { type: Array, default: [] }
+    preferences: { type: Array, default: () => [] },
   },
+  emits: ['cookie-comply-save', 'cookie-comply-close'],
   data() {
     return {
-      checkedValues: []
-    }
+      checkedValues: [],
+    };
   },
   methods: {
     handleCheckboxUpdate({ value, isEnable }) {
-      isEnable ? this.checkedValues.push(value) : this.checkedValues.splice(this.checkedValues.indexOf(value), 1);
+      isEnable
+        ? this.checkedValues.push(value)
+        : this.checkedValues.splice(this.checkedValues.indexOf(value), 1);
     },
     onSaveConfiguration() {
       this.$emit('cookie-comply-save', this.checkedValues);
     },
     onCloseModal() {
       this.$emit('cookie-comply-close');
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>

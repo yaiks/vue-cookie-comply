@@ -1,17 +1,25 @@
 {
   "name": "vue-cookie-comply",
   "version": "0.0.0",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/vue-cookie-comply.umd.js",
   "module": "./dist/vue-cookie-comply.es.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "format": "prettier . --write"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.3.0",
     "@vue/compiler-sfc": "^3.0.5",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^7.17.0",
+    "prettier": "^2.3.2",
     "vite": "^2.4.4",
     "vue": "^3.0.5"
   },

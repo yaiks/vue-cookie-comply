@@ -2,34 +2,43 @@
   <aside v-if="showCookieComply" class="cookie-comply">
     <div class="cookie-comply__header">
       <slot name="header">
-        <h3 class="cookie-comply__header-title">{{ this.headerTitle }}</h3>
-        <p class="cookie-comply__header-description">{{ this.headerDescription }}</p>
+        <h3 class="cookie-comply__header-title">{{ headerTitle }}</h3>
+        <p class="cookie-comply__header-description">{{ headerDescription }}</p>
       </slot>
     </div>
 
     <div class="cookie-comply__actions">
       <cookie-comply-button @handleClick="openPreferences">
-        {{ this.preferencesLabel }}
+        {{ preferencesLabel }}
       </cookie-comply-button>
       <cookie-comply-button
-        className="cookie-comply__button-accept"
+        class-name="cookie-comply__button-accept"
         @handleClick="handleAcceptAll"
       >
-        {{ this.acceptAllLabel }}
+        {{ acceptAllLabel }}
       </cookie-comply-button>
     </div>
 
     <Teleport to="body">
-      <cookie-comply-modal v-if="isModalOpen" :preferences="preferences" @cookie-comply-save="onSave" @cookie-comply-close="isModalOpen = false">
-        <template v-slot:modal-header>
+      <cookie-comply-modal
+        v-if="isModalOpen"
+        :preferences="preferences"
+        @cookie-comply-save="onSave"
+        @cookie-comply-close="isModalOpen = false"
+      >
+        <template #modal-header>
           <slot name="modal-header"></slot>
         </template>
 
-        <template v-slot:modal-body="{ preference, index }">
-          <slot name="modal-body" :preference="preference" :index="index"></slot>
+        <template #modal-body="{ preference, index }">
+          <slot
+            name="modal-body"
+            :preference="preference"
+            :index="index"
+          ></slot>
         </template>
 
-        <template v-slot:modal-footer>
+        <template #modal-footer>
           <slot name="modal-footer"></slot>
         </template>
       </cookie-comply-modal>
@@ -38,19 +47,24 @@
 </template>
 
 <script>
-import CookieComplyModal from "./CookieComplyModal.vue";
-import CookieComplyButton from "./CookieComplyButton.vue";
+import CookieComplyModal from './CookieComplyModal.vue';
+import CookieComplyButton from './CookieComplyButton.vue';
 
 export default {
-  name: "CookieComply",
+  name: 'CookieComply',
   components: { CookieComplyModal, CookieComplyButton },
   props: {
     headerTitle: { type: String, default: 'Cookie settings' },
-    headerDescription: { type: String, default: 'We use cookies and similar technologies to help personalize content and offer a better experience. You can opt to customize them by clicking the preferences button.' },
+    headerDescription: {
+      type: String,
+      default:
+        'We use cookies and similar technologies to help personalize content and offer a better experience. You can opt to customize them by clicking the preferences button.',
+    },
     preferencesLabel: { type: String, default: 'Preferences' },
     acceptAllLabel: { type: String, default: 'Accept All' },
-    preferences: { type: Array, default: [] }
+    preferences: { type: Array, default: () => [] },
   },
+  emits: ['on-accept-all-cookies', 'on-save-cookie-preferences'],
   data() {
     return {
       showCookieComply: true,
@@ -66,7 +80,7 @@ export default {
     handleAcceptAll() {
       this.showCookieComply = false;
       localStorage.setItem('cookie-comply', 'all');
-      this.$emit("on-accept-all-cookies");
+      this.$emit('on-accept-all-cookies');
     },
     openPreferences() {
       this.isModalOpen = true;
@@ -78,8 +92,8 @@ export default {
       // transform Proxy into array of selected preferences
       const preferencesArray = Object.values(data);
 
-      localStorage.setItem('cookie-comply', JSON.stringify(preferencesArray))
-      this.$emit('on-save-cookie-preferences', preferencesArray)
+      localStorage.setItem('cookie-comply', JSON.stringify(preferencesArray));
+      this.$emit('on-save-cookie-preferences', preferencesArray);
     },
   },
 };

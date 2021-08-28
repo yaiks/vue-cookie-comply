@@ -1,9 +1,9 @@
-import CookieComply from './components/CookieComply.vue'
+import CookieComply from './components/CookieComply.vue';
 
 export default {
-  install: (app, options) => {
+  install: (app) => {
     if (!window) return;
 
-    app.component('vue-cookie-comply', CookieComply)
-  }
-}
+    app.component('VueCookieComply', CookieComply);
+  },
+};

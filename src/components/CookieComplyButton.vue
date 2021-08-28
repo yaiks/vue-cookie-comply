@@ -8,14 +8,15 @@
 export default {
   name: 'CookieComplyButton',
   props: {
-    className: { type: String, required: false }
+    className: { type: String, required: false, default: '' },
   },
+  emits: ['handleClick'],
   methods: {
     handleClick() {
-      this.$emit('handleClick')
-    }
-  }
-}
+      this.$emit('handleClick');
+    },
+  },
+};
 </script>
 
 <style>
