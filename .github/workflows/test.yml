@@ -1,0 +1,25 @@
+name: Test
+
+on: [pull_request]
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🤖 Running tests for ${{ github.ref }}"
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install NodeJS
+        uses: actions/setup-node@v2
+      - name: Cache dependencies
+        id: cache_dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-dependencies-${{ hashFiles('./yarn.lock') }}
+      - name: Install dependencies
+        if: steps.cache_dependencies.outputs.cache-hit != 'true'
+        run: npm run ci
+      - name: Run tests
+        run: npm run lint
+      - run: echo "🎉 All tests passed!"
