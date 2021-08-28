@@ -60,3 +60,28 @@ Pass an array of objects to display in the modal
     </template> -->
   </vue-cookie-comply>
 ```
+
+```js
+const onSavePreferences = (info) => {
+  console.log('in my app doing something with info -> ', info)
+}
+
+const onAcceptAll = () => {
+  console.log('accepted all cookies')
+}
+```
+
+Teleport target is `body` by default. If you want to change ir, pass the following prop.
+
+> Just make sure your global styles are applied to body, so the modal can inherit styles like font-family, color, etc..
+
+```css
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+```

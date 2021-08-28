@@ -19,7 +19,7 @@
       </cookie-comply-button>
     </div>
 
-    <Teleport to="#app">
+    <Teleport to="body">
       <cookie-comply-modal v-if="isModalOpen" :preferences="preferences" @cookie-comply-save="onSave" @cookie-comply-close="isModalOpen = false">
         <template v-slot:modal-header>
           <slot name="modal-header"></slot>
