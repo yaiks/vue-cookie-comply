@@ -76,7 +76,25 @@ Now you're ready to use the component `<vue-cookie-comply />` it in your app:
 
 ## Props
 
-### Preferences
+### headerTitle
+
+A string that goes into the component header. It defaults to "Cookie settings".
+
+### headerDescription
+
+A string that gives more context to the user about your cookie policies. It defaults to the following text:
+
+> We use cookies and similar technologies to help personalize content and offer a better experience. You can opt to customize them by clicking the preferences button.
+
+### preferencesLabel
+
+A string that controls the button label for the preferences button. It defaults to "Preferences".
+
+### acceptAllLabel
+
+A string that controls the button label for the acceptance button. It defaults to "Accept All".
+
+### preferences
 
 An array of objects to display the options of cookie preferences **in the modal**. The user may or may not be able to interact with a preference option (see `isRequired` field):
 
@@ -94,9 +112,9 @@ An array of objects to display the options of cookie preferences **in the modal*
       'Bla bla serviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer serviços que podemos oferecer.',
     items: [
       { label: 'GoogleAnalytics', value: 'ga' },
-      { label: 'Sentry', value: 'sentry' },
+      { label: 'Sentry', value: 'sentry', isEnable: true },
       { label: 'Mapbox', value: 'mapbox' },
-      { label: 'New Relic', value: 'newRelic' },
+      { label: 'New Relic', value: 'newRelic', isEnable: true },
       { label: 'Dog Food', value: 'dogfood' },
     ],
   },
@@ -112,8 +130,14 @@ Each object is a section of the **preference's modal**. Each section consists of
 - items: array of objects displaying the preference's options the user may interact with
   - label: name of the option
   - value: value to be dispatched once the user select this option
+  - isEnable: if `true`, means the options will be enabled when the user first opens the modal. It defaults to `false`
   - isRequired: if `true`, means the preference is obligatory and such cookies _cannot be opted out_
 
+### target
+
+A string in form of a **css selector** to target where the preference modal will be placed in your app. It is used for the `Teleport` feature of Vue 3. It defaults to `body`, but you can attach any selector such as `#app`, `.my-class`, etc...
+
+## Events
 
 ### on-accept-all-cookies
 

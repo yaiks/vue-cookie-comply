@@ -19,7 +19,7 @@
       </cookie-comply-button>
     </div>
 
-    <Teleport to="body">
+    <Teleport :to="target">
       <cookie-comply-modal
         v-if="isModalOpen"
         :preferences="preferences"
@@ -63,6 +63,7 @@ export default {
     preferencesLabel: { type: String, default: 'Preferences' },
     acceptAllLabel: { type: String, default: 'Accept All' },
     preferences: { type: Array, default: () => [] },
+    target: { type: String, default: 'body' }
   },
   emits: ['on-accept-all-cookies', 'on-save-cookie-preferences'],
   data() {
