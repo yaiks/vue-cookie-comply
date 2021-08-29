@@ -30,13 +30,10 @@ export default {
       isEnable: false,
     };
   },
-  watch: {
-    isRequired(newVal) {
-      console.log('isrequired', newVal);
-    },
-    value(va) {
-      console.log('va', va);
-    },
+  mounted() {
+    if (this.isRequired) {
+      this.$emit('update:checkbox', { value: this.value, isEnable: true });
+    }
   },
   methods: {
     onToggle(value) {
