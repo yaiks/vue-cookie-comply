@@ -38,9 +38,9 @@
 
         <footer class="cookie-comply__modal-footer">
           <slot name="modal-footer">
-            <cookie-comply-button @handleClick="onSaveConfiguration"
-              >Save</cookie-comply-button
-            >
+            <cookie-comply-button @handleClick="onSaveConfiguration">
+              Save
+            </cookie-comply-button>
           </slot>
         </footer>
       </div>
