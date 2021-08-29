@@ -8,6 +8,7 @@
       type="checkbox"
       :value="value"
       :disabled="isRequired"
+      :checked="isRequired || isDefaultEnable"
       @input="onToggle($event.target.value)"
     />
     <span
@@ -23,6 +24,7 @@ export default {
   props: {
     value: { type: String, required: true },
     isRequired: { type: Boolean, default: false },
+    isDefaultEnable: { type: Boolean, default: false },
   },
   emits: ['update:checkbox'],
   data() {
@@ -31,7 +33,8 @@ export default {
     };
   },
   mounted() {
-    if (this.isRequired) {
+    if (this.isRequired || this.isDefaultEnable) {
+      this.isEnable = true;
       this.$emit('update:checkbox', { value: this.value, isEnable: true });
     }
   },
@@ -102,12 +105,6 @@ input:checked + .cookie-comply-slider:before {
 
 .cookie-comply-slider.cookie-comply-round:before {
   border-radius: 50%;
-}
-
-.cookie-comply-required.cookie-comply-slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
 }
 
 .cookie-comply-required {

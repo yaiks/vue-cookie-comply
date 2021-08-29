@@ -29,6 +29,7 @@
                 <cookie-comply-switch
                   :value="item.value"
                   :is-required="item.isRequired"
+                  :is-default-enable="item.isEnable"
                   @update:checkbox="handleCheckboxUpdate"
                 />
               </div>
