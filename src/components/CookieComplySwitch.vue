@@ -110,4 +110,8 @@ input:checked + .cookie-comply-slider:before {
 .cookie-comply-required {
   cursor: not-allowed;
 }
+
+input:checked + .cookie-comply-required.cookie-comply-slider {
+  background-color: #ccc;
+}
 </style>

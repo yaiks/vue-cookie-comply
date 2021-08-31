@@ -117,7 +117,7 @@ export default {
   border-radius: var(--border-radius);
 }
 
-@media only screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
   .cookie-comply {
     grid-template-columns: none;
   }
@@ -146,7 +146,7 @@ export default {
   align-self: center;
 }
 
-@media only screen and (max-width: 380px) {
+@media (max-width: 480px) {
   .cookie-comply__header {
     margin-bottom: var(--spacing-sm);
   }

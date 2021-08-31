@@ -130,7 +130,7 @@ export default {
   border-bottom: var(--border-color-lightest);
 }
 
-@media only screen and (max-width: 380px) {
+@media (max-width: 480px) {
   .cookie-comply__modal-middle {
     padding: var(--spacing-md);
   }
