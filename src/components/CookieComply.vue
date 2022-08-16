@@ -67,6 +67,7 @@ export default {
     acceptAllLabel: { type: String, default: 'Accept All' },
     rejectAllLabel: { type: String, default: 'Reject All' },
     preferences: { type: Array, default: () => [] },
+    target: { type: String, default: 'body' }
   },
   emits: [
     'on-accept-all-cookies',
