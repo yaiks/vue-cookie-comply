@@ -8,6 +8,9 @@
     </div>
 
     <div class="cookie-comply__actions">
+      <cookie-comply-button @handleClick="handleRejectAll">
+        {{ rejectAllLabel }}
+      </cookie-comply-button>
       <cookie-comply-button @handleClick="openPreferences">
         {{ preferencesLabel }}
       </cookie-comply-button>
@@ -62,10 +65,14 @@ export default {
     },
     preferencesLabel: { type: String, default: 'Preferences' },
     acceptAllLabel: { type: String, default: 'Accept All' },
+    rejectAllLabel: { type: String, default: 'Reject All' },
     preferences: { type: Array, default: () => [] },
-    target: { type: String, default: 'body' }
   },
-  emits: ['on-accept-all-cookies', 'on-save-cookie-preferences'],
+  emits: [
+    'on-accept-all-cookies',
+    'on-save-cookie-preferences',
+    'on-reject-all-cookies',
+  ],
   data() {
     return {
       showCookieComply: true,
@@ -82,6 +89,11 @@ export default {
       this.showCookieComply = false;
       localStorage.setItem('cookie-comply', 'all');
       this.$emit('on-accept-all-cookies');
+    },
+    handleRejectAll() {
+      this.showCookieComply = false;
+      localStorage.setItem('cookie-comply', '');
+      this.$emit('on-reject-all-cookies');
     },
     openPreferences() {
       this.isModalOpen = true;
@@ -142,7 +154,7 @@ export default {
 .cookie-comply__actions {
   display: grid;
   grid-gap: var(--spacing-lg);
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   align-self: center;
 }
 
