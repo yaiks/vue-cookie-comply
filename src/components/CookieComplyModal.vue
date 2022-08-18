@@ -16,8 +16,15 @@
         </header>
 
         <main class="cookie-comply__modal-content">
-          <div v-for="(preference, index) in preferences" :key="index">
-            <slot name="modal-body" :preference="preference" :index="index">
+          <div
+            v-for="(preference, index) in preferences"
+            :key="index"
+          >
+            <slot
+              name="modal-body"
+              :preference="preference"
+              :index="index"
+            >
               <h2>{{ preference.title }}</h2>
               <p>{{ preference.description }}</p>
               <div
@@ -39,8 +46,15 @@
 
         <footer class="cookie-comply__modal-footer">
           <slot name="modal-footer">
-            <cookie-comply-button @handleClick="onSaveConfiguration">
-              Save
+            <cookie-comply-button @handle-click="onSaveConfiguration">
+              Save Settings
+            </cookie-comply-button>
+            <cookie-comply-button
+              v-if="showAcceptAllInModal"
+              class-name="cookie-comply__button-accept"
+              @handle-click="acceptAll"
+            >
+              Accept All
             </cookie-comply-button>
           </slot>
         </footer>
@@ -61,8 +75,9 @@ export default {
   },
   props: {
     preferences: { type: Array, default: () => [] },
+    showAcceptAllInModal: { type: Boolean, default: false },
   },
-  emits: ['cookie-comply-save', 'cookie-comply-close'],
+  emits: ['cookie-comply-save', 'cookie-comply-close', 'cookie-comply-accept-all'],
   data() {
     return {
       checkedValues: [],
@@ -76,6 +91,9 @@ export default {
     },
     onSaveConfiguration() {
       this.$emit('cookie-comply-save', this.checkedValues);
+    },
+    acceptAll() {
+      this.$emit('cookie-comply-accept-all')
     },
     onCloseModal() {
       this.$emit('cookie-comply-close');
@@ -147,5 +165,7 @@ export default {
 .cookie-comply__modal-footer {
   border-top: var(--border-color-light);
   padding-top: var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
 }
 </style>

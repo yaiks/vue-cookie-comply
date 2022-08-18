@@ -1,58 +1,62 @@
 <template>
-  <div class="cookie-comply-wrapper">
-    <aside
-      v-if="showCookieComply"
-      v-scroll-lock="showCookieComply"
-      class="cookie-comply"
-    >
-      <div class="cookie-comply__header">
-        <slot name="header">
-          <h3 class="cookie-comply__header-title">{{ headerTitle }}</h3>
-          <p class="cookie-comply__header-description">{{ headerDescription }}</p>
-        </slot>
-      </div>
+  <div
+    v-if="greyOutBody"
+    class="cookie-comply-body-grey-out"
+  />
+  <aside
+    v-if="showCookieComply"
+    v-scroll-lock="showCookieComply"
+    class="cookie-comply"
+  >
+    <div class="cookie-comply__header">
+      <slot name="header">
+        <h3 class="cookie-comply__header-title">{{ headerTitle }}</h3>
+        <p class="cookie-comply__header-description">{{ headerDescription }}</p>
+      </slot>
+    </div>
 
-      <div class="cookie-comply__actions">
-        <cookie-comply-button @handle-click="handleRejectAll">
-          {{ rejectAllLabel }}
-        </cookie-comply-button>
-        <cookie-comply-button @handle-click="openPreferences">
-          {{ preferencesLabel }}
-        </cookie-comply-button>
-        <cookie-comply-button
-          class-name="cookie-comply__button-accept"
-          @handle-click="handleAcceptAll"
-        >
-          {{ acceptAllLabel }}
-        </cookie-comply-button>
-      </div>
+    <div class="cookie-comply__actions">
+      <cookie-comply-button @handle-click="handleRejectAll">
+        {{ rejectAllLabel }}
+      </cookie-comply-button>
+      <cookie-comply-button @handle-click="openPreferences">
+        {{ preferencesLabel }}
+      </cookie-comply-button>
+      <cookie-comply-button
+        class-name="cookie-comply__button-accept"
+        @handle-click="handleAcceptAll"
+      >
+        {{ acceptAllLabel }}
+      </cookie-comply-button>
+    </div>
 
-      <Teleport :to="target">
-        <cookie-comply-modal
-          v-if="isModalOpen"
-          :preferences="preferences"
-          @cookie-comply-save="onSave"
-          @cookie-comply-close="isModalOpen = false"
-        >
-          <template #modal-header>
-            <slot name="modal-header"></slot>
-          </template>
+    <Teleport :to="target">
+      <cookie-comply-modal
+        v-if="isModalOpen"
+        :preferences="preferences"
+        :show-accept-all-in-modal="showAcceptAllInModal"
+        @cookie-comply-save="onSave"
+        @cookie-comply-accept-all="handleAcceptAll"
+        @cookie-comply-close="isModalOpen = false"
+      >
+        <template #modal-header>
+          <slot name="modal-header"></slot>
+        </template>
 
-          <template #modal-body="{ preference, index }">
-            <slot
-              name="modal-body"
-              :preference="preference"
-              :index="index"
-            ></slot>
-          </template>
+        <template #modal-body="{ preference, index }">
+          <slot
+            name="modal-body"
+            :preference="preference"
+            :index="index"
+          ></slot>
+        </template>
 
-          <template #modal-footer>
-            <slot name="modal-footer"></slot>
-          </template>
-        </cookie-comply-modal>
-      </Teleport>
-    </aside>
-  </div>
+        <template #modal-footer>
+          <slot name="modal-footer"></slot>
+        </template>
+      </cookie-comply-modal>
+    </Teleport>
+  </aside>
 </template>
 
 <script>
@@ -100,6 +104,8 @@ export default {
     rejectAllLabel: { type: String, default: 'Reject All' },
     preferences: { type: Array, default: () => [] },
     target: { type: String, default: 'body' },
+    greyOutBody: { type: Boolean, default: false },
+    showAcceptAllInModal: { type: Boolean, default: false },
   },
   emits: [
     'on-accept-all-cookies',
@@ -148,7 +154,7 @@ export default {
 <style>
 @import '../styles/variables.css';
 
-.cookie-comply-wrapper {
+.cookie-comply-body-grey-out{
   position: fixed;
   top: 0;
   right: 0;

@@ -1,7 +1,7 @@
 {
   "name": "@gluebi/vue-cookie-comply-with-reject",
   "description": "A Vue 3 component to handle cookie acceptance on your website",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "files": [
     "dist"
   ],
@@ -16,7 +16,7 @@
     "ci": "rm -rf node_modules && yarn install --frozen-lockfile"
   },
   "repository": {
-    "url": "https://github.com/gluebi/vue-cookie-comply/"
+    "url": "https://github.com/gluebi/vue-cookie-comply-with-reject/"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
