@@ -4,7 +4,7 @@
       <div class="cookie-comply__modal-inner">
         <img
           alt="Back arrow"
-          src="../assets/arrow_back.svg"
+          src="../assets/modal_close.svg"
           class="cookie-comply__back-arrow"
           @click="onCloseModal"
         />

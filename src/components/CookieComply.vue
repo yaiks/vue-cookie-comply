@@ -154,7 +154,7 @@ export default {
 <style>
 @import '../styles/variables.css';
 
-.cookie-comply-body-grey-out{
+.cookie-comply-body-grey-out {
   position: fixed;
   top: 0;
   right: 0;
