@@ -7,6 +7,7 @@
     v-if="showCookieComply"
     v-scroll-lock="showCookieComply"
     class="cookie-comply"
+    :class="{ 'cookie-comply--modal-open': isModalOpen }"
   >
     <div class="cookie-comply__header">
       <slot name="header">
