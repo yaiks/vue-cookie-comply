@@ -5,7 +5,7 @@
         <img
           alt="Back arrow"
           src="../assets/modal_close.svg"
-          class="cookie-comply__back-arrow"
+          class="cookie-comply__close-icon"
           @click="onCloseModal"
         />
 
@@ -129,10 +129,12 @@ export default {
   box-shadow: var(--box-shadow);
 }
 
-.cookie-comply__back-arrow {
+.cookie-comply__close-icon {
   position: absolute;
-  left: var(--spacing-lg);
+  right: var(--spacing-lg);
   cursor: pointer;
+  width: 16px;
+  height: 16px;
 }
 
 .cookie-comply__modal-content {

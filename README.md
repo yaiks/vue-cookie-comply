@@ -2,23 +2,20 @@
 
 [//]: # (Insert on Made with vue!)
 
-> A Vue 3 compatible component to handle cookie consent
+> A Vue 3 compatible component to handle cookie consent based off https://github.com/yaiks/vue-cookie-comply
 
 ## Features
 
 - 🔹 Small bundle size (2.2kb minified + gziped)
-- 🙅‍♂️ No external depedencies
 - 🤖 Opinated and customizable data structure for the modal content
 - 👐 Emit events on user actions so you can use your handlers
 - 📱 Default responsive layout
 - 🗄️ Highly customizable through **slots**
 - 🚪 Usage of Vue 3 **Teleport** to render the modal anywhere in your app
 - 💅 Write your own CSS or use the default styles
+- Locks scrolling until the user has made a decision
 
 > Heavily inspired by Airbnb's cookie consent UI
-## Demo
-
-Check out a demo page using Vue 3, Vite and vue-cookie-comply: [DEMO PAGE](https://heuristic-shockley-30a885.netlify.app/)
 
 ## Installation
 
@@ -97,6 +94,12 @@ A string that controls the button label for the acceptance button. It defaults t
 ### preferences
 
 An array of objects to display the options of cookie preferences **in the modal**. The user may or may not be able to interact with a preference option (see `isRequired` field):
+
+### greyOutBody
+A boolean to set whether the rest of the page should be greyed out
+
+### showAcceptAllInModal
+A boolean for showing the "Accept All" button in the modal
 
 ```js
 [
