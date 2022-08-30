@@ -13,7 +13,7 @@
     "serve": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier . --write",
-    "ci": "rm -rf node_modules && yarn install --frozen-lockfile",
+    "ci": "rm -rf node_modules && yarn install --frozen-lockfile"
   },
   "repository": {
     "url": "https://github.com/gluebi/vue-cookie-comply-with-reject/"
