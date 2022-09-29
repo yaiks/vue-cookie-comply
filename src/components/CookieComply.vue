@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="greyOutBody"
+    v-if="greyOutBody && showCookieComply"
     class="cookie-comply-body-grey-out"
   />
   <aside
