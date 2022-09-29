@@ -12,7 +12,10 @@
     <div class="cookie-comply__header">
       <slot name="header">
         <h3 class="cookie-comply__header-title">{{ headerTitle }}</h3>
-        <p class="cookie-comply__header-description">{{ headerDescription }}</p>
+        <p
+          class="cookie-comply__header-description"
+          v-html="headerDescription"
+        />
       </slot>
     </div>
 
