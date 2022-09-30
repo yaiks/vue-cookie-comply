@@ -8,7 +8,7 @@
       type="checkbox"
       :value="value"
       :disabled="isRequired"
-      :checked="isRequired || isDefaultEnable"
+      :checked="isRequired || isDefaultEnable || isChecked"
       @input="onToggle($event.target.value)"
     />
     <span
@@ -25,6 +25,7 @@ export default {
     value: { type: String, required: true },
     isRequired: { type: Boolean, default: false },
     isDefaultEnable: { type: Boolean, default: false },
+    isChecked: { type: Boolean, default: false }
   },
   emits: ['update:checkbox'],
   data() {
@@ -33,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    if (this.isRequired || this.isDefaultEnable) {
+    if (this.isRequired || this.isDefaultEnable || this.isChecked) {
       this.isEnable = true;
       this.$emit('update:checkbox', { value: this.value, isEnable: true });
     }

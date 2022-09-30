@@ -37,6 +37,7 @@
                   :value="item.value"
                   :is-required="item.isRequired"
                   :is-default-enable="item.isEnable"
+                  :is-checked="getIsChecked(item.value)"
                   @update:checkbox="handleCheckboxUpdate"
                 />
               </div>
@@ -98,6 +99,19 @@ export default {
     onCloseModal() {
       this.$emit('cookie-comply-close');
     },
+    getIsChecked(value) {
+      const cookieComply = localStorage.getItem('cookie-comply')
+
+      if(cookieComply) {
+        if (cookieComply === 'all') {
+          return true
+        } else {
+          const values = JSON.parse(cookieComply)
+          return !!values.includes(value)
+        }
+      }
+      return false
+    }
   },
 };
 </script>
