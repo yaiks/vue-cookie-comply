@@ -62,6 +62,7 @@ Now you're ready to use the component `<vue-cookie-comply />` it in your app:
         :preferences="preferences"
         @on-accept-all-cookies="onAccept"
         @on-save-cookie-preferences="onSavePreferences"
+        @on-reject-all-cookies="onReject"
       />
 
     <footer />
@@ -100,6 +101,12 @@ A boolean to set whether the rest of the page should be greyed out
 
 ### showAcceptAllInModal
 A boolean for showing the "Accept All" button in the modal
+
+### showEditButton
+A boolean for showing the edit cookies button after submit the consent.
+
+### editCookieIconPath
+A string if you want to change the edit cookies button´s icon.
 
 ```js
 [

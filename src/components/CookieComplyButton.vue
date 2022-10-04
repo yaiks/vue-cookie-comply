@@ -29,4 +29,12 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.cookie-comply__edit-button {
+  padding: 8px;
+  border: 1px solid var(--color-green);
+  background-color: var(--color-green);
+  border-radius: 50%;
+  box-shadow: var(--box-shadow);
+}
 </style>

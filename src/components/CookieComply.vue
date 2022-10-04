@@ -61,6 +61,44 @@
       </cookie-comply-modal>
     </Teleport>
   </aside>
+  <aside 
+    v-if="showEditButton && !showCookieComply"
+    class="cookie-comply-edit"
+  >
+    <cookie-comply-button 
+      @handle-click="openPreferences"
+      className="cookie-comply__edit-button"
+    >
+      <img :src="editCookieIconPath" alt="edit cookies">
+    </cookie-comply-button>
+
+    <Teleport :to="target">
+      <cookie-comply-modal
+        v-if="isModalOpen"
+        :preferences="preferences"
+        :show-accept-all-in-modal="showAcceptAllInModal"
+        @cookie-comply-save="onSave"
+        @cookie-comply-accept-all="handleAcceptAll"
+        @cookie-comply-close="isModalOpen = false"
+      >
+        <template #modal-header>
+          <slot name="modal-header"></slot>
+        </template>
+
+        <template #modal-body="{ preference, index }">
+          <slot
+            name="modal-body"
+            :preference="preference"
+            :index="index"
+          ></slot>
+        </template>
+
+        <template #modal-footer>
+          <slot name="modal-footer"></slot>
+        </template>
+      </cookie-comply-modal>
+    </Teleport>
+  </aside>
 </template>
 
 <script>
@@ -110,6 +148,14 @@ export default {
     target: { type: String, default: 'body' },
     greyOutBody: { type: Boolean, default: false },
     showAcceptAllInModal: { type: Boolean, default: false },
+    showEditButton: {
+      type: Boolean,
+      default: false
+    },
+    editCookieIconPath: {
+      type: String,
+      default: '~@/../src/assets/cookie_edit.svg'
+    }
   },
   emits: [
     'on-accept-all-cookies',
@@ -183,6 +229,13 @@ export default {
   box-shadow: var(--box-shadow);
   padding: var(--spacing-md);
   border-radius: var(--border-radius);
+}
+
+.cookie-comply-edit {
+  position: fixed;
+  bottom: var(--spacing-sm);
+  left: var(--spacing-sm);
+  right: var(--spacing-sm);
 }
 
 @media (max-width: 1024px) {
