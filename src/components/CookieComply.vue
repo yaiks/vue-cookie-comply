@@ -135,7 +135,7 @@ export default {
     },
     handleRejectAll() {
       this.showCookieComply = false;
-      localStorage.setItem('cookie-comply', '');
+      localStorage.setItem('cookie-comply', '[]');
       this.$emit('on-reject-all-cookies');
     },
     openPreferences() {
