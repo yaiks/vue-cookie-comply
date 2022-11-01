@@ -1,7 +1,7 @@
 {
   "name": "vue-cookie-comply-with-reject",
   "description": "A Vue 3 component to handle cookie acceptance on your website",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "files": [
     "dist"
   ],
@@ -19,14 +19,14 @@
     "url": "https://github.com/gluebi/vue-cookie-comply-with-reject/"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^3.0.3",
-    "@vue/compiler-sfc": "^3.2.37",
-    "eslint": "^8.22.0",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "@vue/compiler-sfc": "^3.2.41",
+    "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-vue": "^9.3.0",
+    "eslint-plugin-vue": "^9.7.0",
     "prettier": "^2.7.1",
-    "vite": "^3.0.8",
-    "vue": "^3.2.37"
+    "vite": "^3.2.2",
+    "vue": "^3.2.41"
   },
   "peerDependencies": {
     "vue": "3.x"
