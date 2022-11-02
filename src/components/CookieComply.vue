@@ -61,13 +61,13 @@
       </cookie-comply-modal>
     </Teleport>
   </aside>
-  <aside 
+  <aside
     v-if="showEditButton && !showCookieComply"
     class="cookie-comply-edit"
   >
-    <cookie-comply-button 
+    <cookie-comply-button
+      class-name="cookie-comply__edit-button"
       @handle-click="openPreferences"
-      className="cookie-comply__edit-button"
     >
       <img :src="editCookieIconPath" alt="edit cookies">
     </cookie-comply-button>
@@ -172,8 +172,21 @@ export default {
     if (localStorage.getItem('cookie-comply')) {
       this.showCookieComply = false;
     }
+    this.removeOutOfViewportClass()
   },
   methods: {
+    removeOutOfViewportClass() {
+      this.$nextTick(() => {
+        const greyOutElement = this.$el.querySelector('.cookie-comply-body-grey-out');
+        if (greyOutElement) {
+          greyOutElement.classList.add('fade-in')
+        }
+        const cookieComply = this.$el.querySelector('.cookie-comply')
+        if (cookieComply) {
+          cookieComply.classList.add('slide-up')
+        }
+      })
+    },
     handleAcceptAll() {
       this.showCookieComply = false;
       localStorage.setItem('cookie-comply', 'all');
@@ -204,6 +217,29 @@ export default {
 <style>
 @import '../styles/variables.css';
 
+/* Render cookie comply out of viewport to reduce LCP */
+@keyframes fade-in {
+  0% {
+    opacity(0);
+  }
+  100% {
+    opacity(1);
+  }
+}
+@keyframes slide-up {
+  0% {
+    transform: translateY(110vh);
+  }
+  100% {
+    transform: translateY(0vh);
+  }
+}
+
+.out-of-viewport {
+  transform: translateY(110vh);
+  animation: slide-up 1s forwards;
+}
+
 .cookie-comply-body-grey-out {
   position: fixed;
   top: 0;
@@ -215,6 +251,7 @@ export default {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  animation: fade-in 1s forwards;
 }
 
 .cookie-comply {
@@ -229,6 +266,7 @@ export default {
   box-shadow: var(--box-shadow);
   padding: var(--spacing-md);
   border-radius: var(--border-radius);
+  transform: translateY(100%);
 }
 
 .cookie-comply-edit {
