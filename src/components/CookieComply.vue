@@ -61,15 +61,12 @@
       </cookie-comply-modal>
     </Teleport>
   </aside>
-  <aside 
-    v-if="showEditButton && !showCookieComply"
-    class="cookie-comply-edit"
-  >
-    <cookie-comply-button 
+  <aside v-if="showEditButton && !showCookieComply" class="cookie-comply-edit">
+    <cookie-comply-button
+      class-name="cookie-comply__edit-button"
       @handle-click="openPreferences"
-      className="cookie-comply__edit-button"
     >
-      <img :src="editCookieIconPath" alt="edit cookies">
+      <img :src="editCookieIconPath" alt="edit cookies" />
     </cookie-comply-button>
 
     <Teleport :to="target">
@@ -111,7 +108,7 @@ export default {
   name: 'CookieComply',
   components: { CookieComplyModal, CookieComplyButton },
   directives: {
-    'scroll-lock': scrollLock
+    'scroll-lock': scrollLock,
   },
   props: {
     headerTitle: { type: String, default: 'Cookie settings' },
@@ -129,17 +126,18 @@ export default {
     showAcceptAllInModal: { type: Boolean, default: false },
     showEditButton: {
       type: Boolean,
-      default: false
+      default: false,
     },
     editCookieIconPath: {
       type: String,
-      default: '~@/../src/assets/cookie_edit.svg'
-    }
+      default: '~@/../src/assets/cookie_edit.svg',
+    },
   },
   emits: [
     'on-accept-all-cookies',
     'on-save-cookie-preferences',
     'on-reject-all-cookies',
+    'on-cookie-comply-mount',
   ],
   data() {
     return {
@@ -191,7 +189,7 @@ export default {
   bottom: 0;
   left: 0;
   background-color: #000;
-  opacity: .8;
+  opacity: 0.8;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
