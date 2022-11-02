@@ -16,8 +16,15 @@
         </header>
 
         <main class="cookie-comply__modal-content">
-          <div v-for="(preference, index) in preferences" :key="index">
-            <slot name="modal-body" :preference="preference" :index="index">
+          <div
+            v-for="(preference, index) in preferences"
+            :key="index"
+          >
+            <slot
+              name="modal-body"
+              :preference="preference"
+              :index="index"
+            >
               <h2>{{ preference.title }}</h2>
               <p v-html="preference.description" />
               <div
@@ -60,7 +67,6 @@
 <script>
 import CookieComplyButton from './CookieComplyButton.vue';
 import CookieComplySwitch from './CookieComplySwitch.vue';
-import { getConsentValuesFromStorage } from '../shared/storageUtils';
 
 export default {
   name: 'CookieComplyModal',
@@ -72,11 +78,7 @@ export default {
     preferences: { type: Array, default: () => [] },
     showAcceptAllInModal: { type: Boolean, default: false },
   },
-  emits: [
-    'cookie-comply-save',
-    'cookie-comply-close',
-    'cookie-comply-accept-all',
-  ],
+  emits: ['cookie-comply-save', 'cookie-comply-close', 'cookie-comply-accept-all'],
   data() {
     return {
       checkedValues: [],
@@ -92,7 +94,7 @@ export default {
       this.$emit('cookie-comply-save', this.checkedValues);
     },
     acceptAll() {
-      this.$emit('cookie-comply-accept-all');
+      this.$emit('cookie-comply-accept-all')
     },
     onCloseModal() {
       this.$emit('cookie-comply-close');

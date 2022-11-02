@@ -25,7 +25,7 @@ export default {
     value: { type: String, required: true },
     isRequired: { type: Boolean, default: false },
     isDefaultEnable: { type: Boolean, default: false },
-    isChecked: { type: Boolean, default: false },
+    isChecked: { type: Boolean, default: false }
   },
   emits: ['update:checkbox'],
   data() {

@@ -6,7 +6,6 @@ module.exports = {
   rules: {
     // override/add rules settings here, such as:
     // 'vue/no-unused-vars': 'error'
-    'vue/no-v-html': 'off'
   },
-  ignorePatterns: ['vue-cookie-comply.es.js'],
+  ignorePatterns: ['vue-cookie-comply.es.js']
 };

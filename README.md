@@ -1,6 +1,6 @@
 # Vue Cookie Comply 🍪
 
-[//]: # 'Insert on Made with vue!'
+[//]: # (Insert on Made with vue!)
 
 > A Vue 3 compatible component to handle cookie consent based off https://github.com/yaiks/vue-cookie-comply
 
@@ -34,15 +34,15 @@ npm install vue-cookie-comply
 Then, install `vue-cookie-comply` as a plugin wherever you create your Vue app:
 
 ```js
-import { createApp } from 'vue';
-import App from './App.vue';
-import VueCookieComply from 'vue-cookie-comply';
-import 'vue-cookie-comply/dist/style.css';
+import { createApp } from 'vue'
+import App from './App.vue'
+import VueCookieComply from 'vue-cookie-comply'
+import 'vue-cookie-comply/dist/style.css'
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.use(VueCookieComply);
-app.mount('#app');
+app.use(VueCookieComply)
+app.mount('#app')
 ```
 
 **Don't forget to import the `css` file if you want to leverage the default style** 😉
@@ -58,15 +58,12 @@ Now you're ready to use the component `<vue-cookie-comply />` it in your app:
 
     <div />
 
-    <vue-cookie-comply
-      :preferences="preferences"
-      :grey-out-body="false"
-      :show-accept-all-in-modal="false"
-      @on-accept-all-cookies="onAccept"
-      @on-save-cookie-preferences="onSavePreferences"
-      @on-reject-all-cookies="onReject"
-      @on-cookie-comply-mount="startConsentedServices"
-    />
+      <vue-cookie-comply
+        :preferences="preferences"
+        @on-accept-all-cookies="onAccept"
+        @on-save-cookie-preferences="onSavePreferences"
+        @on-reject-all-cookies="onReject"
+      />
 
     <footer />
   </main>
@@ -100,19 +97,15 @@ A string that controls the button label for the acceptance button. It defaults t
 An array of objects to display the options of cookie preferences **in the modal**. The user may or may not be able to interact with a preference option (see `isRequired` field):
 
 ### greyOutBody
-
 A boolean to set whether the rest of the page should be greyed out
 
 ### showAcceptAllInModal
-
 A boolean for showing the "Accept All" button in the modal
 
 ### showEditButton
-
 A boolean for showing the edit cookies button after submit the consent.
 
 ### editCookieIconPath
-
 A string if you want to change the edit cookies button´s icon.
 
 ```js
@@ -169,13 +162,13 @@ This event is dispatched when the user clicks the `Accept All` button. You can c
 </template>
 
 <script>
-export default {
-  methods: {
-    onAccept() {
-      console.log('User has accepted all cookies');
-    },
-  },
-};
+  export default {
+    methods: {
+      onAccept() {
+        console.log('User has accepted all cookies')
+      }
+    }
+  }
 </script>
 ```
 
@@ -194,36 +187,13 @@ This event is dispatched when the user open the modal and saves their preference
 </template>
 
 <script>
-export default {
-  methods: {
-    onSavePreferences(preferences) {
-      console.log(preferences); // ['performance', 'ga', 'newRelic']
-    },
-  },
-};
-</script>
-```
-
-### on-cookie-comply-mount
-
-This event is dispatched when cookie comply component is mounted. The handler will receive an Array containing the `values` of preferences the user previously opted in:
-
-```vue
-<template>
-  <vue-cookie-comply
-    :preferences="preferences"
-    @on-cookie-comply-mount="startConsentedServices"
-  />
-</template>
-
-<script>
-export default {
-  methods: {
-    startConsentedServices(preferences) {
-      console.log(preferences); // ['performance', 'ga', 'newRelic']
-    },
-  },
-};
+  export default {
+    methods: {
+      onSavePreferences(preferences) {
+        console.log(preferences) // ['performance', 'ga', 'newRelic']
+      }
+    }
+  }
 </script>
 ```
 
@@ -259,7 +229,7 @@ You can use slots to leverage composition and customize `vue-cookie-comply` with
   </vue-cookie-comply>
 ```
 
-There are 4 slots to be customized: `v-slot:header`, `v-slot:modal-header`, `v-slot:modal-body`, `v-slot:modal-footer`.
+There are 4 slots to be customized: `v-slot:header`, `v-slot:modal-header`, `v-slot:modal-body`, `v-slot:modal-footer`. 
 
 Note that `v-slot:modal-body` is a [scoped slot](https://v3.vuejs.org/guide/component-slots.html#scoped-slots) so you can have access to the preference's values 🤩.
 
