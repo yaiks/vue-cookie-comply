@@ -172,10 +172,10 @@ export default {
     if (localStorage.getItem('cookie-comply')) {
       this.showCookieComply = false;
     }
-    this.removeOutOfViewportClass()
+    this.addAnimationClasses()
   },
   methods: {
-    removeOutOfViewportClass() {
+    addAnimationClasses() {
       setTimeout(() => {
         const greyOutElement = this.$el.querySelector('.cookie-comply-body-grey-out');
         if (greyOutElement) {
@@ -225,7 +225,7 @@ export default {
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: 0.8;
   }
 }
 @keyframes slide-up {
@@ -244,7 +244,7 @@ export default {
   bottom: 0;
   left: 0;
   background-color: #000;
-  opacity: .8;
+  opacity: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -264,6 +264,7 @@ export default {
   padding: var(--spacing-md);
   border-radius: var(--border-radius);
   animation: slide-up 1s forwards;
+  transform: translateY(110vh);
 }
 
 .cookie-comply-edit {
