@@ -104,6 +104,7 @@
 <script>
 import CookieComplyModal from './CookieComplyModal.vue';
 import CookieComplyButton from './CookieComplyButton.vue';
+import { getConsentValuesFromStorage } from '../shared/storageUtils';
 import { scrollLock } from '../directives/scroll-lock';
 
 export default {
@@ -150,6 +151,7 @@ export default {
     if (localStorage.getItem('cookie-comply')) {
       this.showCookieComply = false;
     }
+    this.$emit('on-cookie-comply-mount', getConsentValuesFromStorage());
   },
   methods: {
     handleAcceptAll() {
