@@ -176,16 +176,18 @@ export default {
   },
   methods: {
     removeOutOfViewportClass() {
-      this.$nextTick(() => {
+      setTimeout(() => {
         const greyOutElement = this.$el.querySelector('.cookie-comply-body-grey-out');
         if (greyOutElement) {
           greyOutElement.classList.add('fade-in')
         }
+      }, 2000)
+      setTimeout(() => {
         const cookieComply = this.$el.querySelector('.cookie-comply')
         if (cookieComply) {
           cookieComply.classList.add('slide-up')
         }
-      })
+      }, 2500)
     },
     handleAcceptAll() {
       this.showCookieComply = false;
