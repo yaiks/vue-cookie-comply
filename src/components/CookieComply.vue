@@ -61,13 +61,13 @@
       </cookie-comply-modal>
     </Teleport>
   </aside>
-  <aside 
+  <aside
     v-if="showEditButton && !showCookieComply"
     class="cookie-comply-edit"
   >
-    <cookie-comply-button 
+    <cookie-comply-button
+      class-name="cookie-comply__edit-button"
       @handle-click="openPreferences"
-      className="cookie-comply__edit-button"
     >
       <img :src="editCookieIconPath" alt="edit cookies">
     </cookie-comply-button>
@@ -140,6 +140,7 @@ export default {
     'on-accept-all-cookies',
     'on-save-cookie-preferences',
     'on-reject-all-cookies',
+    'on-cookie-comply-mount'
   ],
   data() {
     return {

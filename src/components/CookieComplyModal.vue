@@ -67,6 +67,7 @@
 <script>
 import CookieComplyButton from './CookieComplyButton.vue';
 import CookieComplySwitch from './CookieComplySwitch.vue';
+import { getConsentValuesFromStorage } from "../shared/storageUtils";
 
 export default {
   name: 'CookieComplyModal',
