@@ -172,23 +172,8 @@ export default {
     if (localStorage.getItem('cookie-comply')) {
       this.showCookieComply = false;
     }
-    this.addAnimationClasses()
   },
   methods: {
-    addAnimationClasses() {
-      setTimeout(() => {
-        const greyOutElement = this.$el.querySelector('.cookie-comply-body-grey-out');
-        if (greyOutElement) {
-          greyOutElement.classList.add('fade-in')
-        }
-      }, 2000)
-      setTimeout(() => {
-        const cookieComply = this.$el.querySelector('.cookie-comply')
-        if (cookieComply) {
-          cookieComply.classList.add('slide-up')
-        }
-      }, 2500)
-    },
     handleAcceptAll() {
       this.showCookieComply = false;
       localStorage.setItem('cookie-comply', 'all');
