@@ -26,7 +26,6 @@
               :index="index"
             >
               <h2>{{ preference.title }}</h2>
-              <p v-html="preference.description" />
               <div
                 v-for="item in preference.items"
                 :key="item.value"
