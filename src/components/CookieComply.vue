@@ -104,29 +104,8 @@
 <script>
 import CookieComplyModal from './CookieComplyModal.vue';
 import CookieComplyButton from './CookieComplyButton.vue';
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-
-const scrollLock = {
-  // On mount (inserted)
-  mounted( el, binding ) {
-    if (binding.value) {
-      disableBodyScroll(el)
-    }
-  },
-
-  updated( el, binding ) {
-    if (binding.value) {
-      disableBodyScroll(el)
-    } else {
-      enableBodyScroll(el)
-    }
-  },
-
-  // On unmount (removed)
-  unmounted( el ) {
-    enableBodyScroll(el)
-  }
-}
+import { getConsentValuesFromStorage } from '../shared/storageUtils';
+import { scrollLock } from '../directives/scroll-lock';
 
 export default {
   name: 'CookieComply',
@@ -161,6 +140,7 @@ export default {
     'on-accept-all-cookies',
     'on-save-cookie-preferences',
     'on-reject-all-cookies',
+    'on-cookie-comply-mount'
   ],
   data() {
     return {
@@ -172,6 +152,7 @@ export default {
     if (localStorage.getItem('cookie-comply')) {
       this.showCookieComply = false;
     }
+    this.$emit('on-cookie-comply-mount', getConsentValuesFromStorage());
   },
   methods: {
     handleAcceptAll() {

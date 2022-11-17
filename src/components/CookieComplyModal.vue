@@ -67,6 +67,7 @@
 <script>
 import CookieComplyButton from './CookieComplyButton.vue';
 import CookieComplySwitch from './CookieComplySwitch.vue';
+import { getConsentValuesFromStorage } from "../shared/storageUtils";
 
 export default {
   name: 'CookieComplyModal',
@@ -100,18 +101,18 @@ export default {
       this.$emit('cookie-comply-close');
     },
     getIsChecked(value) {
-      const cookieComply = localStorage.getItem('cookie-comply')
+      const values = getConsentValuesFromStorage();
 
-      if(cookieComply) {
-        if (cookieComply === 'all') {
-          return true
-        } else {
-          const values = JSON.parse(cookieComply)
-          return !!values.includes(value)
-        }
+      if (!values.length) {
+        return false;
       }
-      return false
-    }
+
+      if (values.includes('all')) {
+        return true;
+      }
+
+      return !!values.includes(value);
+    },
   },
 };
 </script>
