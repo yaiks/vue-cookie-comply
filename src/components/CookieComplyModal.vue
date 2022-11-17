@@ -32,7 +32,11 @@
                 :key="item.value"
                 class="cookie-comply__modal-switches"
               >
-                <h3>{{ item.label }}</h3>
+                <p
+                  class="cookie-comply__item-description"
+                  v-html="item.description"
+                />
+                <label class="cookie-comply__item-headline">{{ item.label }}</label>
                 <cookie-comply-switch
                   :value="item.value"
                   :is-required="item.isRequired"
