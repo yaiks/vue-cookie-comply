@@ -118,14 +118,12 @@ A string if you want to change the edit cookies button´s icon.
   },
   {
     title: 'Analytics',
-    description:
-      'Bla bla serviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer erviços que podemos oferecer serviços que podemos oferecer.',
     items: [
-      { label: 'GoogleAnalytics', value: 'ga' },
-      { label: 'Sentry', value: 'sentry', isEnable: true },
-      { label: 'Mapbox', value: 'mapbox' },
-      { label: 'New Relic', value: 'newRelic', isEnable: true },
-      { label: 'Dog Food', value: 'dogfood' },
+      { label: 'GoogleAnalytics', description: 'Google Analytics Description', value: 'ga' },
+      { label: 'Sentry', description: 'Sentry Description',value: 'sentry', isEnable: true },
+      { label: 'Mapbox', description: 'Mapbox Description',value: 'mapbox' },
+      { label: 'New Relic', description: 'New Relic Description',value: 'newRelic', isEnable: true },
+      { label: 'Dog Food', description: 'Dog Food Description',value: 'dogfood' },
     ],
   },
 ];

@@ -16,7 +16,7 @@
         </header>
 
         <main class="cookie-comply__modal-content">
-          <div
+          <template
             v-for="(preference, index) in preferences"
             :key="index"
           >
@@ -26,13 +26,16 @@
               :index="index"
             >
               <h2>{{ preference.title }}</h2>
-              <p v-html="preference.description" />
               <div
                 v-for="item in preference.items"
                 :key="item.value"
                 class="cookie-comply__modal-switches"
               >
-                <h3>{{ item.label }}</h3>
+                <p
+                  class="cookie-comply__item-description"
+                  v-html="item.description"
+                />
+                <h3 class="cookie-comply__item-headline">{{ item.label }}</h3>
                 <cookie-comply-switch
                   :value="item.value"
                   :is-required="item.isRequired"
@@ -42,7 +45,7 @@
                 />
               </div>
             </slot>
-          </div>
+          </template>
         </main>
 
         <footer class="cookie-comply__modal-footer">
@@ -160,6 +163,7 @@ export default {
 
 .cookie-comply__modal-switches {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   border-bottom: var(--border-color-lightest);
