@@ -182,8 +182,26 @@ export default {
 };
 </script>
 
-<style>
+<style lang="css">
 @import '../styles/variables.css';
+
+/* Render cookie comply out of viewport to reduce LCP */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+@keyframes slide-up {
+  0% {
+    transform: translateY(110vh);
+  }
+  100% {
+    transform: translateY(0vh);
+  }
+}
 
 .cookie-comply-body-grey-out {
   position: fixed;
@@ -192,10 +210,11 @@ export default {
   bottom: 0;
   left: 0;
   background-color: #000;
-  opacity: .8;
+  opacity: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  animation: fade-in 1s forwards;
 }
 
 .cookie-comply {
@@ -210,6 +229,8 @@ export default {
   box-shadow: var(--box-shadow);
   padding: var(--spacing-md);
   border-radius: var(--border-radius);
+  animation: slide-up 1s forwards;
+  transform: translateY(110vh);
 }
 
 .cookie-comply-edit {
