@@ -178,6 +178,9 @@ export default {
       localStorage.setItem('cookie-comply', JSON.stringify(preferencesArray));
       this.$emit('on-save-cookie-preferences', preferencesArray);
     },
+    openCookieComply() {
+      this.showCookieComply = true
+    }
   },
 };
 </script>
