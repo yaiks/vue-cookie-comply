@@ -50,7 +50,7 @@ onMounted((): void => {
 
 const onToggle = (value: string): void => {
   isEnable.value = !isEnable.value;
-  this.$emit('update:checkbox', { value, isEnable: isEnable.value });
+  emit('update:checkbox', { value, isEnable: isEnable.value });
 }
 </script>
 
