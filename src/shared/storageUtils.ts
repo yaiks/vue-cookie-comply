@@ -1,4 +1,4 @@
-const getConsentValuesFromStorage = () => {
+const getConsentValuesFromStorage = (): Array<string> => {
   const cookieComply = localStorage.getItem('cookie-comply');
 
   if (!cookieComply) {
