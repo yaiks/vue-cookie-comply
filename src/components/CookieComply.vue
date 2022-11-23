@@ -106,7 +106,7 @@ import { defineProps, onMounted, ref, defineExpose } from "vue";
 import { getConsentValuesFromStorage } from '../shared/storageUtils';
 import CookieComplyModal from './CookieComplyModal.vue';
 import CookieComplyButton from './CookieComplyButton.vue';
-import { scrollLock } from '../directives/scroll-lock';
+import { scrollLock as vScrollLock } from '../directives/scroll-lock';
 
 interface Props {
   headerTitle?: string
