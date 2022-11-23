@@ -67,57 +67,58 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import CookieComplyButton from './CookieComplyButton.vue';
 import CookieComplySwitch from './CookieComplySwitch.vue';
 import { getConsentValuesFromStorage } from "../shared/storageUtils";
+import { ref } from "vue";
 
-export default {
-  name: 'CookieComplyModal',
-  components: {
-    CookieComplyButton,
-    CookieComplySwitch,
-  },
-  props: {
-    preferences: { type: Array, default: () => [] },
-    showAcceptAllInModal: { type: Boolean, default: false },
-  },
-  emits: ['cookie-comply-save', 'cookie-comply-close', 'cookie-comply-accept-all'],
-  data() {
-    return {
-      checkedValues: [],
-    };
-  },
-  methods: {
-    handleCheckboxUpdate({ value, isEnable }) {
-      isEnable
-        ? this.checkedValues.push(value)
-        : this.checkedValues.splice(this.checkedValues.indexOf(value), 1);
-    },
-    onSaveConfiguration() {
-      this.$emit('cookie-comply-save', this.checkedValues);
-    },
-    acceptAll() {
-      this.$emit('cookie-comply-accept-all')
-    },
-    onCloseModal() {
-      this.$emit('cookie-comply-close');
-    },
-    getIsChecked(value) {
-      const values = getConsentValuesFromStorage();
+interface Props {
+  preferences: Array<unknown>,
+  showAcceptAllInModal?: boolean
+}
 
-      if (!values.length) {
-        return false;
-      }
+interface Emits {
+  (e: 'cookie-comply-save', payload: Array<string>): void
+  (e: 'cookie-comply-close'): void
+  (e: 'cookie-comply-accept-all'): void
+}
 
-      if (values.includes('all')) {
-        return true;
-      }
+const props = withDefaults(defineProps<Props>(), {
+  showAcceptAllInModal: false
+})
 
-      return !!values.includes(value);
-    },
-  },
-};
+const emit = defineEmits<Emits>()
+
+const checkedValues = ref<Array<string>>([])
+
+const handleCheckboxUpdate = ({ value, isEnable }): void => {
+  isEnable
+    ? checkedValues.value.push(value)
+    : checkedValues.value.splice(checkedValues.value.indexOf(value), 1);
+}
+const onSaveConfiguration = (): void => {
+  emit('cookie-comply-save', checkedValues.value);
+}
+const acceptAll = (): void => {
+  emit('cookie-comply-accept-all')
+}
+const onCloseModal = (): void => {
+  emit('cookie-comply-close');
+}
+const getIsChecked = (value: string): boolean => {
+  const values = getConsentValuesFromStorage();
+
+  if (!values.length) {
+    return false;
+  }
+
+  if (values.includes('all')) {
+    return true;
+  }
+
+  return !!values.includes(value);
+}
 </script>
 
 <style>

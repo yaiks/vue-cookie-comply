@@ -101,88 +101,89 @@
   </aside>
 </template>
 
-<script>
+<script setup lang="ts">
+import { defineProps, onMounted, ref, defineExpose } from "vue";
+import { getConsentValuesFromStorage } from '../shared/storageUtils';
 import CookieComplyModal from './CookieComplyModal.vue';
 import CookieComplyButton from './CookieComplyButton.vue';
-import { getConsentValuesFromStorage } from '../shared/storageUtils';
 import { scrollLock } from '../directives/scroll-lock';
 
-export default {
-  name: 'CookieComply',
-  components: { CookieComplyModal, CookieComplyButton },
-  directives: {
-    'scroll-lock': scrollLock
-  },
-  props: {
-    headerTitle: { type: String, default: 'Cookie settings' },
-    headerDescription: {
-      type: String,
-      default:
-        'We use cookies and similar technologies to help personalize content and offer a better experience. You can opt to customize them by clicking the preferences button.',
-    },
-    preferencesLabel: { type: String, default: 'Preferences' },
-    acceptAllLabel: { type: String, default: 'Accept All' },
-    rejectAllLabel: { type: String, default: 'Reject All' },
-    preferences: { type: Array, default: () => [] },
-    target: { type: String, default: 'body' },
-    greyOutBody: { type: Boolean, default: false },
-    showAcceptAllInModal: { type: Boolean, default: false },
-    showEditButton: {
-      type: Boolean,
-      default: false
-    },
-    editCookieIconPath: {
-      type: String,
-      default: '~@/../src/assets/cookie_edit.svg'
-    }
-  },
-  emits: [
-    'on-accept-all-cookies',
-    'on-save-cookie-preferences',
-    'on-reject-all-cookies',
-    'on-cookie-comply-mount'
-  ],
-  data() {
-    return {
-      showCookieComply: true,
-      isModalOpen: false,
-    };
-  },
-  mounted() {
-    if (localStorage.getItem('cookie-comply')) {
-      this.showCookieComply = false;
-    }
-    this.$emit('on-cookie-comply-mount', getConsentValuesFromStorage());
-  },
-  methods: {
-    handleAcceptAll() {
-      this.showCookieComply = false;
-      localStorage.setItem('cookie-comply', 'all');
-      this.$emit('on-accept-all-cookies');
-    },
-    handleRejectAll() {
-      this.showCookieComply = false;
-      localStorage.setItem('cookie-comply', '[]');
-      this.$emit('on-reject-all-cookies');
-    },
-    openPreferences() {
-      this.isModalOpen = true;
-    },
-    onSave(data) {
-      this.isModalOpen = false;
-      this.showCookieComply = false;
+interface Props {
+  headerTitle?: string
+  headerDescription?: string
+  preferencesLabel?: string
+  acceptAllLabel?: string
+  rejectAllLabel?: string
+  preferences: Array<unknown>
+  target?: string
+  greyOutBody?: boolean
+  showAcceptAllInModal?: boolean
+  showEditButton?: boolean
+  editCookieIconPath?: string
+}
 
-      // transform Proxy into array of selected preferences
-      const preferencesArray = Object.values(data);
+interface Emits {
+  (e: 'on-accept-all-cookies'): void
+  (e: 'on-save-cookie-preferences', payload: Array<unknown>): void
+  (e: 'on-reject-all-cookies'): void
+  (e: 'on-cookie-comply-mount'): void
+  (e: 'on-cookie-comply-mount', payload: Array<string> | string): void
+}
 
-      localStorage.setItem('cookie-comply', JSON.stringify(preferencesArray));
-      this.$emit('on-save-cookie-preferences', preferencesArray);
-    },
-    openCookieComply() {
-      this.showCookieComply = true
-    }
-  },
-};
+const props = withDefaults(defineProps<Props>(), {
+  headerTitle: 'Cookie Settings',
+  headerDescription: 'We use cookies and similar technologies to help personalize content and offer a better experience. You can opt to customize them by clicking the preferences button.',
+  preferencesLabel: 'Preferences',
+  acceptAllLabel: 'Accept All',
+  rejectAllLabel: 'Reject All',
+  preferences: () => ([]),
+  target: 'body',
+  greyOutBody: false,
+  showAcceptAllInModal: false,
+  showEditButton: false,
+  editCookieIconPath: '~@/../src/assets/cookie_edit.svg'
+})
+
+const emit = defineEmits<Emits>()
+
+const showCookieComply = ref(true)
+const isModalOpen = ref(false)
+
+onMounted((): void => {
+  if (localStorage.getItem('cookie-comply')) {
+    showCookieComply.value = false;
+  }
+  emit('on-cookie-comply-mount', getConsentValuesFromStorage());
+})
+
+const handleAcceptAll = (): void => {
+  showCookieComply.value = false;
+  localStorage.setItem('cookie-comply', 'all');
+  emit('on-accept-all-cookies');
+}
+const handleRejectAll = (): void => {
+  showCookieComply.value = false;
+  localStorage.setItem('cookie-comply', '[]');
+  emit('on-reject-all-cookies');
+}
+const openPreferences = (): void => {
+  isModalOpen.value = true;
+}
+const onSave = (data: Array<string>): void => {
+  isModalOpen.value = false;
+  showCookieComply.value = false;
+
+  // transform Proxy into array of selected preferences
+  const preferencesArray = Object.values(data);
+
+  localStorage.setItem('cookie-comply', JSON.stringify(preferencesArray));
+  emit('on-save-cookie-preferences', preferencesArray);
+}
+const openCookieComply = (): void => {
+  showCookieComply.value = true
+}
+
+defineExpose({openCookieComply})
 </script>
 
 <style lang="css">

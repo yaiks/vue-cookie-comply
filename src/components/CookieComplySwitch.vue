@@ -18,34 +18,40 @@
   </label>
 </template>
 
-<script>
-export default {
-  name: 'CookieComplySwitch',
-  props: {
-    value: { type: String, required: true },
-    isRequired: { type: Boolean, default: false },
-    isDefaultEnable: { type: Boolean, default: false },
-    isChecked: { type: Boolean, default: false }
-  },
-  emits: ['update:checkbox'],
-  data() {
-    return {
-      isEnable: false,
-    };
-  },
-  mounted() {
-    if (this.isRequired || this.isDefaultEnable || this.isChecked) {
-      this.isEnable = true;
-      this.$emit('update:checkbox', { value: this.value, isEnable: true });
-    }
-  },
-  methods: {
-    onToggle(value) {
-      this.isEnable = !this.isEnable;
-      this.$emit('update:checkbox', { value, isEnable: this.isEnable });
-    },
-  },
-};
+<script setup lang="ts">
+import { defineProps, onMounted, ref } from "vue";
+interface Props {
+  value: string
+  isRequired?: boolean
+  isDefaultEnable?: boolean
+  isChecked?: boolean
+}
+
+interface Emits {
+  (e: 'update:checkbox', payload: {value: string; isEnable: boolean}): void
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  isRequired: false,
+  isDefaultEnable: false,
+  isChecked: false
+})
+
+const emit = defineEmits<Emits>()
+
+const isEnable = ref(false)
+
+onMounted((): void => {
+  if (props.isRequired || props.isDefaultEnable || props.isChecked) {
+    isEnable.value = true;
+    emit('update:checkbox', { value: props.value, isEnable: true });
+  }
+})
+
+const onToggle = (value: string): void => {
+  isEnable.value = !isEnable.value;
+  this.$emit('update:checkbox', { value, isEnable: isEnable.value });
+}
 </script>
 
 <style>

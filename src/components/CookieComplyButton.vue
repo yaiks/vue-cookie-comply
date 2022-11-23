@@ -4,19 +4,25 @@
   </button>
 </template>
 
-<script>
-export default {
-  name: 'CookieComplyButton',
-  props: {
-    className: { type: String, required: false, default: '' },
-  },
-  emits: ['handleClick'],
-  methods: {
-    handleClick() {
-      this.$emit('handleClick');
-    },
-  },
-};
+<script setup lang="ts">
+import {defineProps} from 'vue'
+interface Props {
+  className?: string
+}
+
+interface Emits {
+  (e: 'handleClick'): void
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  className: ''
+})
+
+const emit = defineEmits<Emits>()
+
+const handleClick = (): void => {
+  emit('handleClick')
+}
 </script>
 
 <style>
