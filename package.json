@@ -5,8 +5,8 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/vue-cookie-comply.umd.js",
-  "module": "./dist/vue-cookie-comply.es.js",
+  "main": "./dist/vue-cookie-comply.es.mjs",
+  "module": "./dist/vue-cookie-comply.es.mjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
