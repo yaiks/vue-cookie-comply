@@ -1,7 +1,7 @@
 {
   "name": "vue-cookie-comply-with-reject",
   "description": "A Vue 3 component to handle cookie acceptance on your website",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "files": [
     "dist"
   ],

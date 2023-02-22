@@ -182,8 +182,11 @@ const onSave = (data: Array<string>): void => {
 const openCookieComply = (): void => {
   showCookieComply.value = true
 }
+const getAcceptedServices = (): Array<string> => {
+  return getConsentValuesFromStorage()
+}
 
-defineExpose({openCookieComply})
+defineExpose({openCookieComply, getAcceptedServices})
 </script>
 
 <style lang="css">
