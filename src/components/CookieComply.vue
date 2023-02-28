@@ -107,7 +107,7 @@ export default {
   display: grid;
   grid-gap: var(--spacing-lg);
   grid-template-columns: 1fr minmax(35%, 40%);
-  position: absolute;
+  position: fixed;
   bottom: var(--spacing-sm);
   left: var(--spacing-sm);
   right: var(--spacing-sm);
