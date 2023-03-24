@@ -1,3 +1,7 @@
+# :warning: Unmaintained repository
+
+Hey everyone, hope you are doing well. I'm officially marking this repository as archived since from the beginning I wasn't able to give this project the love it deserved. All the code here is open source so feel free to fork and use it as you wish. Thanks for your understanding and see you around!
+
 # Vue Cookie Comply 🍪
 
 [//]: # (Insert on Made with vue!)
