@@ -87,7 +87,7 @@ export default {
 <style>
 .cookie-comply__modal {
   display: table;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
